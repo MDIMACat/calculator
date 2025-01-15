@@ -14,7 +14,7 @@ body {
     margin-left: 490px;
     margin-right: 490px;
     position: relative;
-    top: 80px;
+    top: 20px;
     padding: 5px;
 }
 
@@ -42,8 +42,16 @@ body {
 
  .row-style {
     border: 0.5px solid;
-    padding: 40px;
+    padding: 35px;
     margin-bottom: 3px;
+ }
+
+ .clear {
+    padding: 22.2px;
+ }
+
+ .negative-positive {
+    padding: 27px;
  }
 
  .zero {
