@@ -32,17 +32,14 @@ class Calculator {
         this.operator = "";
         this.answer = "";
         this.currentNumber = "";
-        this.total = "";
+        this.total = 0;
+        this.totalArray = [];
     }
 
     initialize() {
         this.setElements()
         this.getNumber()
         this.trackNumbers()
-        this.add()
-        this.multiply()
-        this.subtract()
-        this.divide()
     }
 
     setElements() {
@@ -71,23 +68,25 @@ class Calculator {
     getNumber() {
         for(const number in this.numbers){
             this.numbers[number].addEventListener("click", () => {
-                this.displayDigits(this.numbers[number].textContent)
+                this.displayCurrent(this.numbers[number].textContent)
             })
         }
     }
 
-    displayDigits(digit) {
+    displayCurrent(digit) {
         if(this.currentNumber === ""){
             this.currentNumber = digit
-            this.total = this.currentNumber
             this.domElements.displayedNumber.innerHTML = this.currentNumber 
         } else if (this.currentNumber !== "" && this.currentNumber.length < 10) {
             this.currentNumber += digit
-            this.total = this.currentNumber
             this.domElements.displayedNumber.innerHTML = this.currentNumber
         } else {
             console.error("Your number is too long")
         }
+    }
+
+    displayCurrentAnswer(num) {
+        this.domElements.displayedNumber.innerHTML = String(num)
     }
 
     trackNumbers() {
@@ -96,7 +95,7 @@ class Calculator {
                 this.operators[signs].style.backgroundColor = "#efb680"
                 switch (signs) {
                     case "plus":
-                        this.add(Number(this.total), Number(this.currentNumber));
+                        this.add();
                         break;
                     case "multiply":
                         this.total = Number(1)
@@ -117,8 +116,20 @@ class Calculator {
 
     }
 
-    add(firstNumber, secondNumber) {
-        console.log(firstNumber, secondNumber)
+    add() {
+        this.totalArray.push(Number(this.currentNumber))
+        this.currentNumber = ""
+        if(this.totalArray.length === 2){
+            this.total += this.totalArray[0]
+            this.total += this.totalArray[1]
+            this.displayCurrentAnswer(this.total)
+        } else if (this.totalArray.length > 2) {
+            this.total = 0
+            for(let i = 0; i < this.totalArray.length; i++){
+                this.total += this.totalArray[i]
+                this.displayCurrentAnswer(this.total)
+            }
+        } 
 
     }
 
@@ -131,6 +142,10 @@ class Calculator {
     }
 
      subtract() {
+
+     }
+
+     equal() {
 
      }
 }
