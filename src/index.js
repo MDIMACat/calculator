@@ -18,7 +18,8 @@ fixedValues = {
         plus: ".plus",
         zero: ".zero",
         dot: ".dot",
-        equal: ".equal"
+        equal: ".equal",
+        displayScreen : ".display-number"
     }
 }
 
@@ -28,16 +29,20 @@ class Calculator {
         this.numbers = {};
         this.operators = {};
         this.domElements = {};
-        this.firstNumber = "";
         this.operator = "";
-        this.secondNumber = "";
         this.answer = "";
+        this.currentNumber = "";
+        this.total = "";
     }
 
     initialize() {
         this.setElements()
-        this.addEvents()
-
+        this.getNumber()
+        this.trackNumbers()
+        this.add()
+        this.multiply()
+        this.subtract()
+        this.divide()
     }
 
     setElements() {
@@ -58,14 +63,76 @@ class Calculator {
         this.numbers.three = document.querySelector(fixedValues.classes.three)
         this.operators.plus = document.querySelector(fixedValues.classes.plus)
         this.numbers.zero = document.querySelector(fixedValues.classes.zero)
-        this.domElements.dot = document.querySelector(fixedValues.classes.dot)
+        this.numbers.dot = document.querySelector(fixedValues.classes.dot)
         this.domElements.equal = document.querySelector(fixedValues.classes.equal)
+        this.domElements.displayedNumber = document.querySelector(fixedValues.classes.displayScreen)
     }
 
-    addEvents() {
-        
+    getNumber() {
+        for(const number in this.numbers){
+            this.numbers[number].addEventListener("click", () => {
+                this.displayDigits(this.numbers[number].textContent)
+            })
+        }
     }
 
+    displayDigits(digit) {
+        if(this.currentNumber === ""){
+            this.currentNumber = digit
+            this.total = this.currentNumber
+            this.domElements.displayedNumber.innerHTML = this.currentNumber 
+        } else if (this.currentNumber !== "" && this.currentNumber.length < 10) {
+            this.currentNumber += digit
+            this.total = this.currentNumber
+            this.domElements.displayedNumber.innerHTML = this.currentNumber
+        } else {
+            console.error("Your number is too long")
+        }
+    }
+
+    trackNumbers() {
+        for(const signs in this.operators){
+            this.operators[signs].addEventListener("click", () => {
+                this.operators[signs].style.backgroundColor = "#efb680"
+                switch (signs) {
+                    case "plus":
+                        this.add(Number(this.total), Number(this.currentNumber));
+                        break;
+                    case "multiply":
+                        this.total = Number(1)
+                        this.multiply(this.total);
+                        break;
+                    case "divide":
+                        this.divide();
+                        break;
+                    case "subtract":
+                        this.subtract();
+                        break;
+                    default:
+                        console.error("Not a valid operation");
+                }
+                
+            })
+        }
+
+    }
+
+    add(firstNumber, secondNumber) {
+        console.log(firstNumber, secondNumber)
+
+    }
+
+    multiply() {
+
+    }
+
+    divide() {
+
+    }
+
+     subtract() {
+
+     }
 }
 
 

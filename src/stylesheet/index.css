@@ -105,3 +105,11 @@ p {
 .zero {
     width: 136px;
 }
+
+.multiply, .minus, .plus, .divide {
+    background-color: #f59c48;
+}
+
+.multiply:hover, .minus:hover, .plus:hover, .divide:hover {
+    background-color:#f78e2b;
+}
