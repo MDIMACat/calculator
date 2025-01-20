@@ -40,6 +40,7 @@ class Calculator {
         this.setElements()
         this.getNumber()
         this.trackNumbers()
+        this.equal()
     }
 
     setElements() {
@@ -69,6 +70,9 @@ class Calculator {
         for(const number in this.numbers){
             this.numbers[number].addEventListener("click", () => {
                 this.displayCurrent(this.numbers[number].textContent)
+                for(const signs in this.operators){
+                    this.operators[signs].style.backgroundColor = "#f59c48"
+                }
             })
         }
     }
@@ -87,19 +91,19 @@ class Calculator {
 
     displayCurrentAnswer(num) {
         this.domElements.displayedNumber.innerHTML = String(num)
+       
     }
 
     trackNumbers() {
         for(const signs in this.operators){
             this.operators[signs].addEventListener("click", () => {
-                this.operators[signs].style.backgroundColor = "#efb680"
+                this.operators[signs].style.backgroundColor = "#dd6d04"
                 switch (signs) {
                     case "plus":
                         this.add();
                         break;
                     case "multiply":
-                        this.total = Number(1)
-                        this.multiply(this.total);
+                        this.multiply();
                         break;
                     case "divide":
                         this.divide();
@@ -134,7 +138,22 @@ class Calculator {
     }
 
     multiply() {
-
+        this.total = 1
+        this.totalArray.push(Number(this.currentNumber))
+        this.currentNumber = ""
+        if(this.totalArray.length === 2){
+            this.total *= this.totalArray[0]
+            this.total *= this.totalArray[1]
+            this.displayCurrentAnswer(this.total)
+            
+        } else if (this.totalArray.length > 2) {
+            this.total = 1
+            for(let i = 0; i < this.totalArray.length; i++){
+                this.total *= this.totalArray[i]
+                this.displayCurrentAnswer(this.total)
+                
+            }
+        } 
     }
 
     divide() {
@@ -146,7 +165,7 @@ class Calculator {
      }
 
      equal() {
-
+        console.log(this.total)
      }
 }
 
