@@ -31,7 +31,6 @@ class Calculator {
     this.operator = "";
     this.answer = 0;
     this.currentNumber = "";
-    this.total = 0;
     this.numbersArray = [];
   }
 
@@ -40,6 +39,7 @@ class Calculator {
     this.getNumberToDisplay();
     this.getOperators();
     this.equal()
+    this.reset()
   }
 
   setElements() {
@@ -145,12 +145,10 @@ class Calculator {
     
   }
 
-
   equal(){
     this.domElements.equal.addEventListener("click", () => {
       this.performCalculation()
       this.updateDisplay();
-    
     })
    
   }
@@ -159,6 +157,16 @@ class Calculator {
     this.numbersArray = [this.answer];
     this.currentNumber = ""; 
     this.operator = ""; 
+  }
+
+  reset(){
+    this.domElements.clear.addEventListener("click", () => {
+      this.operator = "";
+      this.answer = 0;
+      this.currentNumber = "";
+      this.numbersArray = [];
+      this.updateDisplay()
+    })
   }
   
 }
