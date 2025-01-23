@@ -176,3 +176,10 @@ if (typeof document !== undefined) {
   const cal = new Calculator();
   cal.initialize();
 }
+
+
+// TO_DO LIST
+
+//Work on logic for continuos adding before you click =
+// work on negative / positive toggle
+// work on percentage
