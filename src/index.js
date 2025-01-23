@@ -105,29 +105,25 @@ class Calculator {
     }
   }
   
-//   displayCurrentAnswer(num) {
-//       this.domElements.displayedNumber.innerHTML = String(num)
-//   }
+  updateDisplay() {
+      this.domElements.displayedNumber.innerHTML = String(this.answer)
+  }
 
   performCalculation() {
     if (this.numbersArray.length === 1 && this.currentNumber !== "") {
         this.numbersArray.push(Number(this.currentNumber));
-       this.operate()
-
-      } else if(this.numbersArray.length > 2) {
-        console.log("longer array logic")
+        this.operate();
+        this.updateDisplay(); 
+        this.clearArray(); 
       }
-    
-       
   }
 
   operate(){
-    let num1 = this.numbersArray[0]
-    let num2 = this.numbersArray[1]
+    const [num1, num2] = this.numbersArray;
 
     switch (this.operator) {
       case "plus":
-        this.answer = num1 + num2;
+        this.answer = num1 + num2
         break;
       case "minus":
         this.answer = num1 - num2;
@@ -153,68 +149,18 @@ class Calculator {
   equal(){
     this.domElements.equal.addEventListener("click", () => {
       this.performCalculation()
-      console.log(this.answer)
-   
+      this.updateDisplay();
+    
     })
    
   }
 
-// equal(){
-//     // this.domElements.equal.addEventListener("click", () => {
-//     //     this.performCalculation();
-//     //   });
-// }
-
-
-  // add() {
-  //     this.totalArray.push(Number(this.currentNumber))
-  //     this.currentNumber = ""
-  //     if(this.totalArray.length === 2){
-  //         this.total += this.totalArray[0]
-  //         this.total += this.totalArray[1]
-  //         this.displayCurrentAnswer(this.total)
-
-  //     } else if (this.totalArray.length > 2) {
-  //         this.total = 0
-  //         for(let i = 0; i < this.totalArray.length; i++){
-  //             this.total += this.totalArray[i]
-  //             this.displayCurrentAnswer(this.total)
-  //         }
-
-  //     }
-  //    this.domElements.equal.addEventListener("click", () => {
-  //         console.log(this.total)
-  //    })
-
-  // }
-
-  // multiply() {
-  //     this.total = 1
-  //     this.totalArray.push(Number(this.currentNumber))
-  //     this.currentNumber = ""
-  //     if(this.totalArray.length === 2){
-  //         this.total *= this.totalArray[0]
-  //         this.total *= this.totalArray[1]
-  //         this.displayCurrentAnswer(this.total)
-
-  //     } else if (this.totalArray.length > 2) {
-  //         this.total = 1
-  //         for(let i = 0; i < this.totalArray.length; i++){
-  //             this.total *= this.totalArray[i]
-  //             this.displayCurrentAnswer(this.total)
-  //         }
-  //     }
-  // }
-
-  // divide() {
-
-  // }
-
-  //  subtract() {
-
-  //  }
-
-
+   clearArray() {
+    this.numbersArray = [this.answer];
+    this.currentNumber = ""; 
+    this.operator = ""; 
+  }
+  
 }
 
 
