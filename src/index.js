@@ -29,7 +29,7 @@ class Calculator {
     this.operators = {};
     this.domElements = {};
     this.operator = "";
-    this.answer = "";
+    this.answer = 0;
     this.currentNumber = "";
     this.total = 0;
     this.numbersArray = [];
@@ -39,7 +39,7 @@ class Calculator {
     this.setElements();
     this.getNumberToDisplay();
     this.getOperators();
-    
+    this.equal()
   }
 
   setElements() {
@@ -112,37 +112,52 @@ class Calculator {
   performCalculation() {
     if (this.numbersArray.length === 1 && this.currentNumber !== "") {
         this.numbersArray.push(Number(this.currentNumber));
-        console.log(`second Number is Pushed`)
+       this.operate()
+
+      } else if(this.numbersArray.length > 2) {
+        console.log("longer array logic")
       }
-
-
-      if (this.numbersArray.length === 2) {
-        const [num1, num2] = this.numbersArray;
-        let result = 0;
     
-        switch (this.operator) {
-          case "plus":
-            result = num1 + num2;
-            break;
-          case "minus":
-            result = num1 - num2;
-            break;
-          case "multiply":
-            result = num1 * num2;
-            break;
-          case "divide":
-            if (num2 !== 0) {
-              result = num1 / num2;
-            } else {
-              console.error("Cannot divide by zero");
-              result = "Error";
-            }
-            break;
-          default:
-            console.error("Invalid operator");
-        }
+       
   }
-}
+
+  operate(){
+    let num1 = this.numbersArray[0]
+    let num2 = this.numbersArray[1]
+
+    switch (this.operator) {
+      case "plus":
+        this.answer = num1 + num2;
+        break;
+      case "minus":
+        this.answer = num1 - num2;
+        break;
+      case "multiply":
+        this.answer = num1 * num2;
+        break;
+      case "divide":
+        if (num2 !== 0) {
+          this.answer = num1 / num2;
+        } else {
+          console.error("Cannot divide by zero");
+          this.answer = 0
+        }
+        break;
+      default:
+        console.error("Invalid operator");
+    }
+    
+  }
+
+
+  equal(){
+    this.domElements.equal.addEventListener("click", () => {
+      this.performCalculation()
+      console.log(this.answer)
+   
+    })
+   
+  }
 
 // equal(){
 //     // this.domElements.equal.addEventListener("click", () => {
@@ -198,7 +213,10 @@ class Calculator {
   //  subtract() {
 
   //  }
+
+
 }
+
 
 if (typeof document !== undefined) {
   const cal = new Calculator();
